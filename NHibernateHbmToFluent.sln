@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converter", "Converter\Converter.csproj", "{0D349641-280D-416A-B992-C09C88BBDBB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{8011CAC9-01ED-41FE-80F8-CF8676FBA7BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterTests", "ConverterTests\ConverterTests.csproj", "{0C623CB9-8504-42EA-AEDE-AB633757E400}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D349641-280D-416A-B992-C09C88BBDBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D349641-280D-416A-B992-C09C88BBDBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D349641-280D-416A-B992-C09C88BBDBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D349641-280D-416A-B992-C09C88BBDBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8011CAC9-01ED-41FE-80F8-CF8676FBA7BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8011CAC9-01ED-41FE-80F8-CF8676FBA7BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8011CAC9-01ED-41FE-80F8-CF8676FBA7BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8011CAC9-01ED-41FE-80F8-CF8676FBA7BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C623CB9-8504-42EA-AEDE-AB633757E400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C623CB9-8504-42EA-AEDE-AB633757E400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C623CB9-8504-42EA-AEDE-AB633757E400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C623CB9-8504-42EA-AEDE-AB633757E400}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

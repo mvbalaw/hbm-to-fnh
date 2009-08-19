@@ -1,0 +1,74 @@
+using System;
+using System.IO;
+
+namespace NHibernateHbmToFluent.Converter
+{
+	public class MappingConverter
+	{
+		private readonly Action<string> _writeToConsole;
+		private readonly Action<string> _writeToError;
+
+		public MappingConverter(Action<string> writeToConsole, Action<string> writeToError)
+		{
+			_writeToConsole = writeToConsole;
+			_writeToError = writeToError;
+		}
+
+		public void ConvertAll(string hbmDirectory, string mapDirectory, string nameSpace)
+		{
+			string[] files = Directory.GetFiles(hbmDirectory, "*" + HbmFileUtility.NHibernateFileExtension);
+			foreach (string hbmFilePath in files)
+			{
+				try
+				{
+					_writeToConsole(hbmFilePath);
+					MappedClassInfo classInfo = HbmFileUtility.LoadFile(hbmFilePath);
+					string classNameAndNamespace = classInfo.ClassName;
+					int dotLoc = classNameAndNamespace.LastIndexOf('.');
+					string className = classNameAndNamespace;
+					if (dotLoc != -1)
+					{
+						className = className.Substring(dotLoc + 1);
+					}
+					string classMapName = className + "Map";
+					string result = Convert(classMapName, classInfo, nameSpace);
+					File.WriteAllText(Path.Combine(mapDirectory, classMapName + ".cs"), result);
+				}
+				catch (Exception ex)
+				{
+					_writeToError("Caught exception processing file " + Path.GetFileName(hbmFilePath) + ": " + ex);
+				}
+			}
+			_writeToConsole("done...");
+		}
+
+		public string Convert(string classMapName, MappedClassInfo classInfo, string nameSpace)
+		{
+			CodeFileBuilder builder = new CodeFileBuilder();
+			ClassMapBody bodyBuilder = new ClassMapBody(builder);
+			builder.AddUsing("System");
+			builder.AddUsing("FluentNHibernate.Mapping");
+			builder.StartNamespace(nameSpace);
+			{
+				builder.StartClass(classMapName + ": ClassMap<" + classInfo.ClassName + ">", false, false);
+				{
+					builder.StartMethod("public " + classMapName + "()");
+					{
+						if (!String.IsNullOrEmpty(classInfo.TableName))
+						{
+							builder.AddLine("Table(\"" + classInfo.TableName + "\");");
+						}
+						foreach (var info in classInfo.Properties)
+						{
+							bodyBuilder.Add("", info);
+						}
+					}
+					builder.EndBlock();
+				}
+				builder.EndBlock();
+			}
+			builder.EndBlock();
+			return builder.ToString();
+		}
+	}
+}

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D349641-280D-416A-B992-C09C88BBDBB8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NHibernateHbmToFluent.Converter</RootNamespace>
+    <AssemblyName>NHibernateHbmToFluent.Converter</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=4.5.1230.4, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeFileBuilder.cs" />
+    <Compile Include="Extensions\NHibernate\HbmBagExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmColumnExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmComponentExtensions.cs" />
+    <Compile Include="HbmFileUtility.cs" />
+    <Compile Include="Extensions\NHibernate\HbmIdExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmManyToManyExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmManyToOneExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmOneToManyExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmPropertyExtensions.cs" />
+    <Compile Include="Extensions\NHibernate\HbmSetExtensions.cs" />
+    <Compile Include="MappedClassInfo.cs" />
+    <Compile Include="MappedPropertyInfo.cs" />
+    <Compile Include="MappingConverter.cs" />
+    <Compile Include="Types\Bag.cs" />
+    <Compile Include="Methods\Join\Cascade.cs" />
+    <Compile Include="ClassMapBody.cs" />
+    <Compile Include="Extensions\CodeFileBuilderExtensions.cs" />
+    <Compile Include="Methods\Column.cs" />
+    <Compile Include="Types\Component.cs" />
+    <Compile Include="Methods\GeneratedBy.cs" />
+    <Compile Include="Types\Id.cs" />
+    <Compile Include="Methods\ICommonMapMethod.cs" />
+    <Compile Include="Types\IMapStart.cs" />
+    <Compile Include="Methods\Join\Inverse.cs" />
+    <Compile Include="Methods\Join\KeyColumn.cs" />
+    <Compile Include="Methods\Join\LazyLoad.cs" />
+    <Compile Include="Methods\Length.cs" />
+    <Compile Include="Types\Map.cs" />
+    <Compile Include="Methods\Nullability.cs" />
+    <Compile Include="Methods\Join\OrderBy.cs" />
+    <Compile Include="Types\References.cs" />
+    <Compile Include="Types\Set.cs" />
+    <Compile Include="Methods\Join\Table.cs" />
+    <Compile Include="Methods\Unique.cs" />
+    <Compile Include="Methods\Join\Where.cs" />
+    <Compile Include="NamedConstant.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyMappingType.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
