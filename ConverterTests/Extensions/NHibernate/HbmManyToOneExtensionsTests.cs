@@ -281,7 +281,7 @@ namespace ConverterTests.Extensions.NHibernate
 				result.Value.ShouldBeTrue();
 			}
 
-			[Test, ExpectedException(typeof(NullReferenceException))]
+			[Test, ExpectedException(typeof (NullReferenceException))]
 			public void Should_get_exception_given_notnullSpecified_is_false_and_Items_is_null()
 			{
 				HbmManyToOne manyToOne = new HbmManyToOne
@@ -360,19 +360,18 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "FirstName";
 				HbmManyToOne manyToOne = new HbmManyToOne
-				{
-					Items = new object[]
+					{
+						Items = new object[]
 							{
 								new HbmColumn
 									{
 										name = expected
 									}
 							}
-				};
+					};
 				string result = manyToOne.GetColumnName();
 				result.ShouldBeEqualTo(expected);
 			}
 		}
-
 	}
 }

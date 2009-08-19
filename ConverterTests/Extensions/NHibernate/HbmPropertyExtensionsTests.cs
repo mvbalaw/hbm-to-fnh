@@ -46,9 +46,9 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "VARCHAR2";
 				HbmProperty property = new HbmProperty
-				{
-					column = expected
-				};
+					{
+						column = expected
+					};
 				string result = property.GetSqlType();
 				result.ShouldBeEqualTo(expected);
 			}

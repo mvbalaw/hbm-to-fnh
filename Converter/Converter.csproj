@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=4.5.1230.4, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\JetBrains.Annotations.dll</HintPath>
@@ -67,6 +71,10 @@
     <Compile Include="MappedClassInfo.cs" />
     <Compile Include="MappedPropertyInfo.cs" />
     <Compile Include="MappingConverter.cs" />
+    <Compile Include="FakeMap.cs" />
+    <Compile Include="Methods\Index.cs" />
+    <Compile Include="Methods\UnsavedValue.cs" />
+    <Compile Include="ReflectionUtility.cs" />
     <Compile Include="Types\Bag.cs" />
     <Compile Include="Methods\Join\Cascade.cs" />
     <Compile Include="ClassMapBody.cs" />

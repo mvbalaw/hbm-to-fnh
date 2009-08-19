@@ -4,7 +4,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions
 	{
 		public static void StartMethod(this CodeFileBuilder builder, string prefix, string methodBody)
 		{
-			builder.AddLine(prefix+methodBody);
+			builder.AddLine(prefix + methodBody);
 			builder.Indent();
 		}
 	}

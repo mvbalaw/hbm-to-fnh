@@ -46,5 +46,10 @@ namespace NHibernateHbmToFluent.Converter
 		{
 			return !(a == b);
 		}
+
+		public static IEnumerable<T> AllValues
+		{
+			get { return NamedConstants.Values; }
+		}
 	}
 }

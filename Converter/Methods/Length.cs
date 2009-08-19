@@ -1,3 +1,5 @@
+using FluentNHibernate.Mapping;
+
 namespace NHibernateHbmToFluent.Converter.Methods
 {
 	public class Length : ICommonMapMethod
@@ -17,7 +19,15 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			}
 			if (item.MaxLength != null)
 			{
-				_builder.AddLine(".Length(" + item.MaxLength + ")");
+				_builder.AddLine(string.Format(".{0}({1})", FluentNHibernateNames.Length, item.MaxLength));
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Length
+			{
+				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.Length(6)); }
 			}
 		}
 	}

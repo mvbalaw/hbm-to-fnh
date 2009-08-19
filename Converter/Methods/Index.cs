@@ -2,11 +2,11 @@ using FluentNHibernate.Mapping;
 
 namespace NHibernateHbmToFluent.Converter.Methods
 {
-	public class Unique : ICommonMapMethod
+	public class Index : ICommonMapMethod
 	{
 		private readonly CodeFileBuilder _builder;
 
-		public Unique(CodeFileBuilder builder)
+		public Index(CodeFileBuilder builder)
 		{
 			_builder = builder;
 		}
@@ -17,17 +17,17 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			{
 				return;
 			}
-			if (info.IsUnique != null && info.IsUnique.Value)
+			if (info.UniqueIndex != null)
 			{
-				_builder.AddLine(string.Format(".{0}()", FluentNHibernateNames.Unique));
+				_builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.Index, info.UniqueIndex));
 			}
 		}
 
 		public static class FluentNHibernateNames
 		{
-			public static string Unique
+			public static string Index
 			{
-				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.Unique()); }
+				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.Index(null)); }
 			}
 		}
 	}

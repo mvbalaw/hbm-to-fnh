@@ -14,9 +14,9 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "FirstName";
 				HbmId id = new HbmId
-				{
-					name = expected
-				};
+					{
+						name = expected
+					};
 				string result = id.GetPropertyName();
 				result.ShouldBeEqualTo(expected);
 			}
@@ -30,9 +30,9 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "System.String";
 				HbmId id = new HbmId
-				{
-					type1 = expected + ", mscorlib"
-				};
+					{
+						type1 = expected + ", mscorlib"
+					};
 				string result = id.GetReturnType();
 				result.ShouldBeEqualTo(expected);
 			}
@@ -46,15 +46,15 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "VARCHAR2";
 				HbmId id = new HbmId
-				{
-					column = new[]
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										sqltype = expected
 									}
 							}
-				};
+					};
 				string result = id.GetSqlType();
 				result.ShouldBeEqualTo(expected);
 			}
@@ -68,15 +68,15 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "FirstName";
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										name = expected
 									}
 							}
-				};
+					};
 				string result = id.GetColumnName();
 				result.ShouldBeEqualTo(expected);
 			}
@@ -90,9 +90,9 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const int expected = 16;
 				HbmId id = new HbmId
-				{
-					length = expected.ToString()
-				};
+					{
+						length = expected.ToString()
+					};
 				int? result = id.GetMaxLength();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeEqualTo(expected);
@@ -103,15 +103,15 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const int expected = 16;
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										length = expected.ToString()
 									}
 							}
-				};
+					};
 				int? result = id.GetMaxLength();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeEqualTo(expected);
@@ -121,9 +121,9 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_null_length_and_column_length()
 			{
 				HbmId id = new HbmId
-				{
-					column = new [] { new HbmColumn() }
-				};
+					{
+						column = new[] {new HbmColumn()}
+					};
 				int? result = id.GetMaxLength();
 				result.ShouldBeNull();
 			}
@@ -137,15 +137,15 @@ namespace ConverterTests.Extensions.NHibernate
 			{
 				const string expected = "Name";
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										index = expected
 									}
 							}
-				};
+					};
 				string result = id.GetUniqueIndex();
 				result.ShouldNotBeNull();
 				result.ShouldBeEqualTo(expected);
@@ -155,9 +155,9 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_null_index_and_column_index()
 			{
 				HbmId id = new HbmId
-				{
-					column = new [] { new HbmColumn() }
-				};
+					{
+						column = new[] {new HbmColumn()}
+					};
 				string result = id.GetUniqueIndex();
 				result.ShouldBeNull();
 			}
@@ -170,9 +170,9 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_column_is_null()
 			{
 				HbmId id = new HbmId
-				{
-					column = null
-				};
+					{
+						column = null
+					};
 				bool? result = id.CanBeNull();
 				result.ShouldBeNull();
 			}
@@ -181,15 +181,15 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_column_notnullSpecified_is_false()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										notnullSpecified = false
 									}
 							}
-				};
+					};
 				bool? result = id.CanBeNull();
 				result.ShouldBeNull();
 			}
@@ -198,8 +198,8 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get__true__given_column_notnullSpecified_is_true_and_notnull_is_false()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
@@ -207,7 +207,7 @@ namespace ConverterTests.Extensions.NHibernate
 										notnull = false
 									}
 							}
-				};
+					};
 				bool? result = id.CanBeNull();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeTrue();
@@ -217,8 +217,8 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get__false__given_column_notnullSpecified_is_true_and_notnull_is_true()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
@@ -226,7 +226,7 @@ namespace ConverterTests.Extensions.NHibernate
 										notnull = true
 									}
 							}
-				};
+					};
 				bool? result = id.CanBeNull();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeFalse();
@@ -240,9 +240,9 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_column_is_null()
 			{
 				HbmId id = new HbmId
-				{
-					column = null
-				};
+					{
+						column = null
+					};
 				bool? result = id.IsUnique();
 				result.ShouldBeNull();
 			}
@@ -251,15 +251,15 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get_null_given_column_uniqueSpecified_is_false()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
 										uniqueSpecified = false
 									}
 							}
-				};
+					};
 				bool? result = id.IsUnique();
 				result.ShouldBeNull();
 			}
@@ -268,8 +268,8 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get__true__given_column_uniqueSpecified_is_true_and_column_unique_is_true()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
@@ -277,7 +277,7 @@ namespace ConverterTests.Extensions.NHibernate
 										unique = true
 									}
 							}
-				};
+					};
 				bool? result = id.IsUnique();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeTrue();
@@ -287,8 +287,8 @@ namespace ConverterTests.Extensions.NHibernate
 			public void Should_get__false__given_column_uniqueSpecified_is_true_and_column_unique_is_false()
 			{
 				HbmId id = new HbmId
-				{
-					column = new []
+					{
+						column = new[]
 							{
 								new HbmColumn
 									{
@@ -296,12 +296,11 @@ namespace ConverterTests.Extensions.NHibernate
 										unique = false
 									}
 							}
-				};
+					};
 				bool? result = id.IsUnique();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeFalse();
 			}
 		}
-
 	}
 }

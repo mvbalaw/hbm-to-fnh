@@ -16,17 +16,34 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 				switch (cascadeType)
 				{
 					case "save-update":
-						_builder.AddLine(".Cascade.SaveUpdate()");
+						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Cascade, FluentNHibernateNames.SaveUpdate));
 						break;
 					case "none":
-						_builder.AddLine(".Cascade.None()");
+						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Cascade, FluentNHibernateNames.None));
 						break;
 					default:
-						_builder.AddLine(".Cascade.?");
+						_builder.AddLine(string.Format(".{0}.?", FluentNHibernateNames.Cascade));
 						break;
 				}
 			}
 		}
 
+		public static class FluentNHibernateNames
+		{
+			public static string Cascade
+			{
+				get { return ReflectionUtility.GetPropertyName((FakeMap f) => f.HasMany<string>(x => x.ToLower()).Cascade); }
+			}
+
+			public static string SaveUpdate
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x.ToLower()).Cascade.SaveUpdate()); }
+			}
+
+			public static string None
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x.ToLower()).Cascade.None()); }
+			}
+		}
 	}
 }

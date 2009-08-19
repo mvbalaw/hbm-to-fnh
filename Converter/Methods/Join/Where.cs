@@ -9,11 +9,19 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 			_builder = builder;
 		}
 
-		public void Add(string @where)
+		public void Add(string sqlWhereClause)
 		{
-			if (@where != null)
+			if (sqlWhereClause != null)
 			{
-				_builder.AddLine(".Where(x => x." + @where.Replace("'", "\"").Replace("=", "==") + ")");
+				_builder.AddLine(string.Format(".{0}(x => x.{1})", FluentNHibernateNames.Where, sqlWhereClause.Replace("'", "\"").Replace("=", "==")));
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Where
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).Where(x => 1 == 1)); }
 			}
 		}
 	}

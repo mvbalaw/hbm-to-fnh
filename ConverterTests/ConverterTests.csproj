@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=4.5.1230.4, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\JetBrains.Annotations.dll</HintPath>
@@ -68,8 +72,21 @@
     <Compile Include="Extensions\NHibernate\HbmPropertyExtensionsTests.cs" />
     <Compile Include="Extensions\NHibernate\HbmSetExtensionsTests.cs" />
     <Compile Include="MappedPropertyInfoTests.cs" />
+    <Compile Include="Methods\ColumnTests.cs" />
+    <Compile Include="Methods\IndexTests.cs" />
+    <Compile Include="Methods\Join\CascadeTests.cs" />
+    <Compile Include="Methods\GeneratedByTests.cs" />
+    <Compile Include="Methods\Join\InverseTests.cs" />
+    <Compile Include="Methods\Join\KeyColumnTests.cs" />
+    <Compile Include="Methods\Join\LazyLoadTests.cs" />
+    <Compile Include="Methods\Join\OrderByTests.cs" />
+    <Compile Include="Methods\Join\TableTests.cs" />
+    <Compile Include="Methods\LengthTests.cs" />
+    <Compile Include="Methods\UniqueTests.cs" />
+    <Compile Include="Methods\UnsavedValueTests.cs" />
+    <Compile Include="Methods\Join\WhereTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringExtensionTests.cs" />
+    <Compile Include="Extensions\StringExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Converter\Converter.csproj">

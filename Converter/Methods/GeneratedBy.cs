@@ -1,8 +1,9 @@
+using FluentNHibernate.Mapping;
 using NHibernate.Cfg.MappingSchema;
 
 namespace NHibernateHbmToFluent.Converter.Methods
 {
-	public class GeneratedBy : ICommonMapMethod
+	public class GeneratedBy
 	{
 		private readonly CodeFileBuilder _builder;
 
@@ -28,24 +29,42 @@ namespace NHibernateHbmToFluent.Converter.Methods
 						{
 							HbmParam[] parameters = generator.param;
 							string[] text = parameters[0].Text;
-							_builder.AddLine(".GeneratedBy.Sequence(\"" + text[0] + "\")");
+							_builder.AddLine(string.Format(".{0}.{1}(\"{2}\")", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Sequence, text[0]));
 							break;
 						}
 					case "assigned":
-						_builder.AddLine(".GeneratedBy.Assigned()");
+						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Assigned));
 						break;
 					case "native":
-						_builder.AddLine(".GeneratedBy.Native()");
+						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Native));
 						break;
 					default:
-						_builder.AddLine(".GeneratedBy. ?");
+						_builder.AddLine(string.Format(".{0}. ?", FluentNHibernateNames.GeneratedBy));
 						break;
 				}
 			}
-			if (id.unsavedvalue != null)
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string GeneratedBy
 			{
-				var unsavedValue = id.unsavedvalue == "null" ? "String.Empty" : id.unsavedvalue;
-				_builder.AddLine(".UnsavedValue(" + unsavedValue + ")");
+				get { return ReflectionUtility.GetPropertyName((IdentityPart ip) => ip.GeneratedBy); }
+			}
+
+			public static string Assigned
+			{
+				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Assigned()); }
+			}
+
+			public static string Native
+			{
+				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Native()); }
+			}
+
+			public static string Sequence
+			{
+				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Sequence(null)); }
 			}
 		}
 	}

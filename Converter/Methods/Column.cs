@@ -1,3 +1,5 @@
+using FluentNHibernate.Mapping;
+
 namespace NHibernateHbmToFluent.Converter.Methods
 {
 	public class Column : ICommonMapMethod
@@ -20,7 +22,15 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			}
 			if (item.ColumnName != null)
 			{
-				_builder.AddLine(".Column(\"" + item.ColumnName + "\")");
+				_builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.Column, item.ColumnName));
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Column
+			{
+				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.Column(null)); }
 			}
 		}
 	}

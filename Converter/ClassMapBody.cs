@@ -20,7 +20,7 @@ namespace NHibernateHbmToFluent.Converter
 					new Length(_builder),
 					new Nullability(_builder),
 					new Unique(_builder),
-					new GeneratedBy(_builder)
+					new Index(_builder)
 				};
 			GeneratedBy generatedBy = new GeneratedBy(_builder);
 			info.Type.StartMethod(prefix, _builder, info);

@@ -17,12 +17,25 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 			{
 				if (lazy == HbmCollectionLazy.False)
 				{
-					_builder.AddLine(".Not.LazyLoad()");
+					_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Not, FluentNHibernateNames.LazyLoad));
 				}
 				else
 				{
-					_builder.AddLine(".LazyLoad()");
+					_builder.AddLine(string.Format(".{0}()", FluentNHibernateNames.LazyLoad));
 				}
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Not
+			{
+				get { return ReflectionUtility.GetPropertyName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).Not); }
+			}
+
+			public static string LazyLoad
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).LazyLoad()); }
 			}
 		}
 	}

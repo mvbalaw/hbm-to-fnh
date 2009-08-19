@@ -13,7 +13,15 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 		{
 			if (orderBy != null)
 			{
-				_builder.AddLine(".OrderBy(\"" + orderBy + "\")");
+				_builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.OrderBy, orderBy));
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string OrderBy
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).OrderBy(null)); }
 			}
 		}
 	}

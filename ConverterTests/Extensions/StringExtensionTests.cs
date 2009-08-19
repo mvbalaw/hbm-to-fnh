@@ -1,7 +1,7 @@
 using NHibernateHbmToFluent.Converter.Extensions;
 using NUnit.Framework;
 
-namespace ConverterTests
+namespace ConverterTests.Extensions
 {
 	public class StringExtensionTests
 	{
