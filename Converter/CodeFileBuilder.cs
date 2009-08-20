@@ -126,6 +126,11 @@ namespace NHibernateHbmToFluent.Converter
 			_indentLevel++;
 		}
 
+		public void Indent(int count)
+		{
+			_indentLevel += count;
+		}
+
 		public void Unindent()
 		{
 			_indentLevel--;

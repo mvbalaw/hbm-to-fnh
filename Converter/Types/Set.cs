@@ -34,18 +34,18 @@ namespace NHibernateHbmToFluent.Converter.Types
 			PropertyMappingType subType = childItem.Type;
 			if (subType == PropertyMappingType.ManyToMany)
 			{
-				_builder.StartMethod(prefix, "HasManyToMany<" + item.ReturnType + ">(x => x." + item.Name + ")");
-				_builder.AddLine(".ChildKeyColumn(\"" + childItem.ColumnName + "\")");
+				_builder.StartMethod(prefix, string.Format("{0}<{1}>(x => x.{2})", FluentNHibernateNames.HasManyToMany, item.ReturnType, item.Name));
+				_builder.AddLine(string.Format(".{0}(\"{1}\")", KeyColumn.FluentNHibernateNames.ChildKeyColumn, childItem.ColumnName));
 			}
 			else if (subType == PropertyMappingType.OneToMany)
 			{
-				_builder.StartMethod(prefix, "HasMany<" + item.ReturnType + ">(x => x." + item.Name + ")");
+				_builder.StartMethod(prefix, string.Format("{0}<{1}>(x => x.{2})", FluentNHibernateNames.HasMany, item.ReturnType, item.Name));
 			}
 			else
 			{
 				_builder.StartMethod(prefix, "set?(x => x" + item.Name + ")");
 			}
-			_builder.AddLine(".AsSet()");
+			_builder.AddLine(string.Format(".{0}()", FluentNHibernateNames.AsSet));
 			_keyColumn.Add(set.inverse, item.ColumnName, subType);
 			_lazyLoad.Add(set.lazySpecified, set.lazy);
 			_table.Add(set.table);
@@ -53,6 +53,24 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_cascade.Add(set.cascade);
 			_orderBy.Add(set.orderby);
 			_where.Add(set.where);
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string HasManyToMany
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x)); }
+			}
+
+			public static string HasMany
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x)); }
+			}
+
+			public static string AsSet
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x).AsSet()); }
+			}
 		}
 	}
 }

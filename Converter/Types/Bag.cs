@@ -31,23 +31,41 @@ namespace NHibernateHbmToFluent.Converter.Types
 			PropertyMappingType subType = new MappedPropertyInfo(bag.Item, item.FileName).Type;
 			if (subType == PropertyMappingType.ManyToMany)
 			{
-				_builder.StartMethod(prefix, "HasManyToMany<" + item.ReturnType + ">(x => x." + item.Name + ")");
+				_builder.StartMethod(prefix, string.Format("{0}<{1}>(x => x.{2})", FluentNHibernateNames.HasManyToMany, item.ReturnType, item.Name));
 			}
 			else if (subType == PropertyMappingType.OneToMany)
 			{
-				_builder.StartMethod(prefix, "HasMany<" + item.ReturnType + ">(x => x." + item.Name + ")");
+				_builder.StartMethod(prefix, string.Format("{0}<{1}>(x => x.{2})", FluentNHibernateNames.HasMany, item.ReturnType, item.Name));
 			}
 			else
 			{
 				_builder.StartMethod(prefix, "bag?(x => x" + item.Name + ")");
 			}
-			_builder.AddLine(".AsBag()");
+			_builder.AddLine(string.Format(".{0}()", FluentNHibernateNames.AsBag));
 			_keyColumn.Add(bag.inverse, item.ColumnName, subType);
 			_lazyLoad.Add(bag.lazySpecified, bag.lazy);
 			_table.Add(bag.table);
 			_inverse.Add(bag.inverse);
 			_cascade.Add(bag.cascade);
 			_orderBy.Add(bag.orderby);
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string HasManyToMany
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x)); }
+			}
+
+			public static string HasMany
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x)); }
+			}
+
+			public static string AsBag
+			{
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x).AsBag()); }
+			}
 		}
 	}
 }

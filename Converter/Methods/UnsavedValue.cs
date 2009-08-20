@@ -1,3 +1,4 @@
+using FluentNHibernate.Mapping;
 using NHibernate.Cfg.MappingSchema;
 
 namespace NHibernateHbmToFluent.Converter.Methods
@@ -22,7 +23,15 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			if (id.unsavedvalue != null)
 			{
 				var unsavedValue = id.unsavedvalue == "null" ? "String.Empty" : id.unsavedvalue;
-				_builder.AddLine(".UnsavedValue(" + unsavedValue + ")");
+				_builder.AddLine(string.Format(".{0}({1})", FluentNHibernateNames.UnsavedValue, unsavedValue));
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string UnsavedValue
+			{
+				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.UnsavedValue(null)); }
 			}
 		}
 	}

@@ -2,11 +2,11 @@ using FluentNHibernate.Mapping;
 
 namespace NHibernateHbmToFluent.Converter.Methods
 {
-	public class Length
+	public class CustomType
 	{
 		private readonly CodeFileBuilder _builder;
 
-		public Length(CodeFileBuilder builder)
+		public CustomType(CodeFileBuilder builder)
 		{
 			_builder = builder;
 		}
@@ -17,17 +17,18 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			{
 				return;
 			}
-			if (item.MaxLength != null)
+
+			if (item.SqlType == "CHAR" && item.ReturnType == "YesNo")
 			{
-				_builder.AddLine(string.Format(".{0}({1})", FluentNHibernateNames.Length, item.MaxLength));
+				_builder.AddLine(string.Format(".{0}(\"{1}\")", FluentNHibernateNames.CustomType, item.ReturnType));
 			}
 		}
 
 		public static class FluentNHibernateNames
 		{
-			public static string Length
+			public static string CustomType
 			{
-				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.Length(6)); }
+				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.CustomType(typeof (string))); }
 			}
 		}
 	}

@@ -55,6 +55,10 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 				return item.column;
 			}
 			HbmColumn column = item.Column();
+			if (column == null)
+			{
+				return null;
+			}
 			string sqlType = column.sqltype;
 			return sqlType;
 		}

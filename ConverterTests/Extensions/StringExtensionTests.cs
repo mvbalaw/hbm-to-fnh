@@ -6,6 +6,22 @@ namespace ConverterTests.Extensions
 	public class StringExtensionTests
 	{
 		[TestFixture]
+		public class When_asked_to_SplitOnFormattingWhitespace
+		{
+			[Test]
+			public void Should_remove_newlines_and_tabs_and_return_resulting_array_of_strings()
+			{
+				const string input = @"
+					these
+					are
+					some
+					lines";
+				string[] result = input.SplitOnFormattingWhitespace();
+				result.ShouldBeEqualTo(new[] {"these", "are", "some", "lines"});
+			}
+		}
+
+		[TestFixture]
 		public class When_asked_to_GetTypeName
 		{
 			[Test]

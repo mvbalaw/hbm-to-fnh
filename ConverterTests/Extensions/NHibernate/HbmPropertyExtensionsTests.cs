@@ -42,6 +42,14 @@ namespace ConverterTests.Extensions.NHibernate
 		public class When_asked_to_GetSqlType
 		{
 			[Test]
+			public void Should_return_null_given_Items_and_columns_are_null()
+			{
+				HbmProperty property = new HbmProperty();
+				string result = property.GetSqlType();
+				result.ShouldBeNull();
+			}
+
+			[Test]
 			public void Should_get_the_correct_value_from_column_if_not_null()
 			{
 				const string expected = "VARCHAR2";

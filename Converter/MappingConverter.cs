@@ -42,7 +42,7 @@ namespace NHibernateHbmToFluent.Converter
 			_writeToConsole("done...");
 		}
 
-		public string Convert(string classMapName, MappedClassInfo classInfo, string nameSpace)
+		public static string Convert(string classMapName, MappedClassInfo classInfo, string nameSpace)
 		{
 			CodeFileBuilder builder = new CodeFileBuilder();
 			ClassMapBody bodyBuilder = new ClassMapBody(builder);
@@ -56,7 +56,7 @@ namespace NHibernateHbmToFluent.Converter
 					{
 						if (!String.IsNullOrEmpty(classInfo.TableName))
 						{
-							builder.AddLine("Table(\"" + classInfo.TableName + "\");");
+							builder.AddLine(FluentNHibernateNames.Table + "(\"" + classInfo.TableName + "\");");
 						}
 						foreach (var info in classInfo.Properties)
 						{
@@ -69,6 +69,28 @@ namespace NHibernateHbmToFluent.Converter
 			}
 			builder.EndBlock();
 			return builder.ToString();
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Table
+			{
+				get { return typeof (FakeMap).GetMethod("Table").Name; }
+			}
+
+			public static string ClassMap
+			{
+				get
+				{
+					string name = typeof (FakeMap).BaseType.Name;
+					int index = name.IndexOf('`');
+					if (index != -1)
+					{
+						name = name.Substring(0, index);
+					}
+					return name;
+				}
+			}
 		}
 	}
 }

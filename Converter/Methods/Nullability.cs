@@ -1,3 +1,5 @@
+using FluentNHibernate.Mapping;
+
 namespace NHibernateHbmToFluent.Converter.Methods
 {
 	public class Nullability : ICommonMapMethod
@@ -21,8 +23,21 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			{
 				if (!info.CanBeNull.Value)
 				{
-					_builder.AddLine(".Not.Nullable()");
+					_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Not, FluentNHibernateNames.Nullable));
 				}
+			}
+		}
+
+		public static class FluentNHibernateNames
+		{
+			public static string Not
+			{
+				get { return ReflectionUtility.GetPropertyName((PropertyPart ip) => ip.Not); }
+			}
+
+			public static string Nullable
+			{
+				get { return ReflectionUtility.GetMethodName((PropertyPart ip) => ip.Nullable()); }
 			}
 		}
 	}

@@ -8,7 +8,17 @@ namespace ConverterTests.Methods
 	public class UnsavedValueTests
 	{
 		[TestFixture]
-		public class When_asked_to_Add_unsaved_value
+		public class When_asked_for_a_FluentNHibernate_name
+		{
+			[Test]
+			public void Should_return_the_correct_value_for__UnsavedValue()
+			{
+				UnsavedValue.FluentNHibernateNames.UnsavedValue.ShouldBeEqualTo("UnsavedValue");
+			}
+		}
+
+		[TestFixture]
+		public class When_asked_to_Add_an_unsaved_value
 		{
 			private CodeFileBuilder _builder;
 			private UnsavedValue _unsavedValue;
@@ -47,7 +57,7 @@ namespace ConverterTests.Methods
 					}, null);
 				_unsavedValue.Add(mappedPropertyInfo);
 				string result = _builder.ToString();
-				result.ShouldBeEqualTo(".UnsavedValue(String.Empty)\r\n");
+				result.ShouldBeEqualTo(string.Format(".{0}(String.Empty)\r\n", UnsavedValue.FluentNHibernateNames.UnsavedValue));
 			}
 
 			[Test]
@@ -59,7 +69,7 @@ namespace ConverterTests.Methods
 					}, null);
 				_unsavedValue.Add(mappedPropertyInfo);
 				string result = _builder.ToString();
-				result.ShouldBeEqualTo(".UnsavedValue(6)\r\n");
+				result.ShouldBeEqualTo(string.Format(".{0}(6)\r\n", UnsavedValue.FluentNHibernateNames.UnsavedValue));
 			}
 		}
 	}

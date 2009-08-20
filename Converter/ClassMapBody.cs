@@ -16,13 +16,10 @@ namespace NHibernateHbmToFluent.Converter
 		{
 			var methodBuilders = new List<ICommonMapMethod>
 				{
-					new Column(_builder),
-					new Length(_builder),
 					new Nullability(_builder),
 					new Unique(_builder),
 					new Index(_builder)
 				};
-			GeneratedBy generatedBy = new GeneratedBy(_builder);
 			info.Type.StartMethod(prefix, _builder, info);
 			{
 				methodBuilders.ForEach(x => x.Add(info));

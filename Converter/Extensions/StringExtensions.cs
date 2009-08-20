@@ -4,6 +4,11 @@ namespace NHibernateHbmToFluent.Converter.Extensions
 {
 	public static class StringExtensions
 	{
+		public static string[] SplitOnFormattingWhitespace(this string input)
+		{
+			return input.Split(new[] {'\r', '\n', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+		}
+
 		public static string GetTypeName(this string fullTypeDescriptor)
 		{
 			int commaLoc = fullTypeDescriptor.IndexOf(',');
