@@ -61,9 +61,9 @@ desc "Compiles the app"
 task :compile => [:clean, :version] do
   MSBuildRunner.compile :compilemode => COMPILE_TARGET, :solutionfile => 'src/NHibernateHbmToFluent.sln', :clrversion => CLR_VERSION
     
-  outDir = "src/NHibernateHbmToFluent/WinForm/bin/#{COMPILE_TARGET}"
+  outDir = "src/WinForm/bin/#{COMPILE_TARGET}"
     
-  Dir.glob(File.join(outDir, "*.{dll,pdb}")){|file| 		
+  Dir.glob(File.join(outDir, "*.{dll,pdb,exe}")){|file| 		
 	copy(file, props[:archive]) if File.file?(file)
   }
 end
