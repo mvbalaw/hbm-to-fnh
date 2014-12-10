@@ -8,3 +8,4 @@ TestResult.xml
 CommonAssemblyInfo.cs
 *.cache
 /src/Backup/
+/src/packages
