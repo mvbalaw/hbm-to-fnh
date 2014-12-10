@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -26,7 +27,13 @@ namespace NHibernateHbmToFluent.Converter
 			}
 			string[] parts = classInfo.name.Split(new[] {','});
 			ClassName = parts[0];
-			AssemblyName = parts[1].Trim();
+		    if (parts.Length > 1)
+		    {
+                AssemblyName = parts[1].Trim();
+		    }
+
+		    Mutable = classInfo.mutable;
+		    Cache = classInfo.cache;
 
 			TableName = classInfo.table;
 		}
@@ -39,6 +46,10 @@ namespace NHibernateHbmToFluent.Converter
 
 		[NotNull]
 		public string TableName { get; private set; }
+
+        public Boolean Mutable { get; private set; }
+
+        public HbmCache Cache { get; private set; }
 
 		[NotNull]
 		public List<MappedPropertyInfo> Properties { get; private set; }

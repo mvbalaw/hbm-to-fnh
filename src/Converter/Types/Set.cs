@@ -10,6 +10,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 		private readonly Where _where;
 		private readonly OrderBy _orderBy;
 		private readonly Cascade _cascade;
+        private readonly CacheBuilder _cacheBuilder;
 		private readonly Inverse _inverse;
 		private readonly Table _table;
 		private readonly KeyColumn _keyColumn;
@@ -25,6 +26,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_table = new Table(builder);
 			_keyColumn = new KeyColumn(builder);
 			_lazyLoad = new LazyLoad(builder);
+            _cacheBuilder = new CacheBuilder(builder);
 		}
 
 		public void Start(string prefix, MappedPropertyInfo item)
@@ -53,7 +55,8 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_cascade.Add(set.cascade);
 			_orderBy.Add(set.orderby);
 			_where.Add(set.where);
-		}
+            _cacheBuilder.Add(set.cache);
+        }
 
 		public static class FluentNHibernateNames
 		{

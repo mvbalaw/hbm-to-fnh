@@ -22,17 +22,6 @@ namespace ConverterTests.Extensions.NHibernate
 				result.Value.ShouldBeTrue();
 			}
 
-			[Test, ExpectedException(typeof (NullReferenceException))]
-			public void Should_get_exception_given_unique_is_false_and_Items_is_null()
-			{
-				HbmManyToOne manyToOne = new HbmManyToOne
-					{
-						unique = false,
-						Items = null
-					};
-				manyToOne.IsUnique();
-			}
-
 			[Test]
 			public void Should_get_null_given_unique_is_false_and_Items_uniqueSpecified_is_false()
 			{
@@ -279,18 +268,6 @@ namespace ConverterTests.Extensions.NHibernate
 				bool? result = manyToOne.CanBeNull();
 				result.ShouldNotBeNull();
 				result.Value.ShouldBeTrue();
-			}
-
-			[Test, ExpectedException(typeof (NullReferenceException))]
-			public void Should_get_exception_given_notnullSpecified_is_false_and_Items_is_null()
-			{
-				HbmManyToOne manyToOne = new HbmManyToOne
-					{
-						notnullSpecified = false,
-						Items = null
-					};
-				bool? result = manyToOne.CanBeNull();
-				result.ShouldBeNull();
 			}
 
 			[Test]

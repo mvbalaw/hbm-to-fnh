@@ -1,3 +1,4 @@
+using FluentNHibernate.Conventions;
 using NHibernate.Cfg.MappingSchema;
 
 namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
@@ -67,16 +68,25 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 			{
 				return !item.notnull;
 			}
-			return item.Column().CanBeNull();
+
+		    var column = item.Column();
+		    if (column == null) return null;
+		    return column.CanBeNull();
 		}
 
 		public static string GetColumnName(this HbmManyToOne item)
 		{
+		    if (item.column != null && !item.column.IsEmpty())
+		    {
+		        return item.column;
+		    }
+
 			return item.Column().name;
 		}
 
 		private static HbmColumn Column(this HbmManyToOne item)
 		{
+            if (item.Items == null || item.Items.IsEmpty()) return null;
 			return (HbmColumn) item.Items[0];
 		}
 	}

@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using FluentNHibernate.Conventions.Helpers;
+using NHibernateHbmToFluent.Converter.Methods.Join;
 
 namespace NHibernateHbmToFluent.Converter
 {
@@ -22,17 +24,19 @@ namespace NHibernateHbmToFluent.Converter
 				try
 				{
 					_writeToConsole(hbmFilePath);
-					MappedClassInfo classInfo = HbmFileUtility.LoadFile(hbmFilePath);
-					string classNameAndNamespace = classInfo.ClassName;
-					int dotLoc = classNameAndNamespace.LastIndexOf('.');
-					string className = classNameAndNamespace;
-					if (dotLoc != -1)
-					{
-						className = className.Substring(dotLoc + 1);
-					}
-					string classMapName = className + "Map";
-					string result = Convert(classMapName, classInfo, nameSpace);
-					File.WriteAllText(Path.Combine(mapDirectory, classMapName + ".cs"), result);
+                    foreach (var classInfo in HbmFileUtility.LoadFile(hbmFilePath))
+				    {
+                        string classNameAndNamespace = classInfo.ClassName;
+                        int dotLoc = classNameAndNamespace.LastIndexOf('.');
+                        string className = classNameAndNamespace;
+                        if (dotLoc != -1)
+                        {
+                            className = className.Substring(dotLoc + 1);
+                        }
+                        string classMapName = className + "Map";
+                        string result = Convert(classMapName, classInfo, nameSpace);
+                        File.WriteAllText(Path.Combine(mapDirectory, classMapName + ".cs"), result);
+				    }
 				}
 				catch (Exception ex)
 				{
@@ -45,7 +49,6 @@ namespace NHibernateHbmToFluent.Converter
 		public static string Convert(string classMapName, MappedClassInfo classInfo, string nameSpace)
 		{
 			CodeFileBuilder builder = new CodeFileBuilder();
-			ClassMapBody bodyBuilder = new ClassMapBody(builder);
 			builder.AddUsing("System");
 			builder.AddUsing("FluentNHibernate.Mapping");
 			builder.StartNamespace(nameSpace);
@@ -58,6 +61,15 @@ namespace NHibernateHbmToFluent.Converter
 						{
 							builder.AddLine(FluentNHibernateNames.Table + "(\"" + classInfo.TableName + "\");");
 						}
+
+                        new CacheBuilder(builder).Add(classInfo.Cache, true);
+
+                        if (!classInfo.Mutable)
+                        {
+                            builder.AddLine("ReadOnly();");
+                        }
+
+                        ClassMapBody bodyBuilder = new ClassMapBody(builder);
 						foreach (var info in classInfo.Properties)
 						{
 							bodyBuilder.Add("", info);
