@@ -30,7 +30,7 @@ namespace NHibernateHbmToFluent.Converter.Extensions.NHibernate
 			HbmColumn column = item.Column();
 			if (column == null)
 			{
-				return null;
+				return item.column1;
 			}
 			return column.name;
 		}

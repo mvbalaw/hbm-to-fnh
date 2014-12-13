@@ -13,6 +13,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 		private readonly Table _table;
 		private readonly KeyColumn _keyColumn;
 		private readonly LazyLoad _lazyLoad;
+        private readonly CacheBuilder _cacheBuilder;
 
 		public Bag(CodeFileBuilder builder)
 		{
@@ -23,6 +24,7 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_table = new Table(builder);
 			_keyColumn = new KeyColumn(builder);
 			_lazyLoad = new LazyLoad(builder);
+            _cacheBuilder = new CacheBuilder(builder);
 		}
 
 		public void Start(string prefix, MappedPropertyInfo item)
@@ -48,7 +50,8 @@ namespace NHibernateHbmToFluent.Converter.Types
 			_inverse.Add(bag.inverse);
 			_cascade.Add(bag.cascade);
 			_orderBy.Add(bag.orderby);
-		}
+            _cacheBuilder.Add(bag.cache);
+        }
 
 		public static class FluentNHibernateNames
 		{

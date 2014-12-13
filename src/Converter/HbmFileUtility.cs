@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using NHibernate.Cfg.MappingSchema;
+using NHibernate.Mapping;
 using NHibernate.Util;
 
 namespace NHibernateHbmToFluent.Converter
@@ -10,7 +13,7 @@ namespace NHibernateHbmToFluent.Converter
 	{
 		public const string NHibernateFileExtension = ".hbm.xml";
 
-		public static MappedClassInfo LoadFile(string nhibernateFilePath)
+		public static IEnumerable<MappedClassInfo> LoadFile(string nhibernateFilePath)
 		{
 			MappingDocumentParser parser = new MappingDocumentParser();
 			HbmMapping mapping;
@@ -28,13 +31,14 @@ namespace NHibernateHbmToFluent.Converter
 				throw;
 			}
 
-			if (mapping.Items.Length != 1)
+			if (mapping.Items.Length == 0)
 			{
 				throw new ParserException("NHibernate file has NO data: " + nhibernateFilePath);
 			}
 
-			MappedClassInfo classInfo = new MappedClassInfo((HbmClass) mapping.Items[0], nhibernateFilePath);
-			return classInfo;
+		    return mapping.Items
+		        .Cast<HbmClass>()
+		        .Select(item => new MappedClassInfo(item, nhibernateFilePath));
 		}
 
 		public static MappedClassInfo LoadFromString(string hbmData)

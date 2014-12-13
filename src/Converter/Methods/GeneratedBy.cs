@@ -35,11 +35,20 @@ namespace NHibernateHbmToFluent.Converter.Methods
 					case "assigned":
 						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Assigned));
 						break;
+                    case "guid.comb":
+                        _builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.GuidComb));
+                        break;
+                    case "guid":
+                        _builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Guid));
+                        break;
 					case "native":
 						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Native));
 						break;
+                    case "identity":
+                        _builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.GeneratedBy, FluentNHibernateNames.Identity));
+                        break;
 					default:
-						_builder.AddLine(string.Format(".{0}. ?", FluentNHibernateNames.GeneratedBy));
+                        _builder.AddLine(string.Format(".{0}.{1} ?", FluentNHibernateNames.GeneratedBy, generator.@class));
 						break;
 				}
 			}
@@ -61,6 +70,21 @@ namespace NHibernateHbmToFluent.Converter.Methods
 			{
 				get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Native()); }
 			}
+
+            public static string Identity
+            {
+                get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Identity()); }
+            }
+
+            public static string GuidComb
+            {
+                get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.GuidComb()); }
+            }
+
+            public static string Guid
+            {
+                get { return ReflectionUtility.GetMethodName((IdentityPart ip) => ip.GeneratedBy.Guid()); }
+            }
 
 			public static string Sequence
 			{

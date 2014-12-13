@@ -49,29 +49,29 @@ namespace NHibernateHbmToFluent.Converter
 
 		public static readonly PropertyMappingType ManyToMany = new PropertyMappingType(typeof (HbmManyToMany),
 		                                                                                "many-to-many",
-		                                                                                null,
+                                                                                        x => null,
 		                                                                                x =>
 		                                                                                ((HbmManyToMany) x).GetColumnName(),
 		                                                                                x => null,
-		                                                                                null,
+                                                                                        x => null,
 		                                                                                x =>
 		                                                                                ((HbmManyToMany) x).GetReturnType(),
-		                                                                                null,
-		                                                                                null,
-		                                                                                null,
-		                                                                                (prefix, builder, item) => builder.StartMethod(prefix, "?(x => x." + item.ReturnType + ")"));
+                                                                                        x => null,
+                                                                                        x => null,
+                                                                                        x => null,
+                                                                                        (prefix, builder, item) => builder.StartMethod(prefix, "HasManyToMany(x => x." + item.ReturnType + ")"));
 
 		public static readonly PropertyMappingType OneToOne = new PropertyMappingType(typeof (HbmOneToOne),
 		                                                                              "one-to-one",
-		                                                                              null,
-		                                                                              null,
-		                                                                              x => null,
-		                                                                              null,
-		                                                                              null,
-		                                                                              null,
-		                                                                              null,
-		                                                                              null,
-		                                                                              (prefix, builder, item) => builder.StartMethod(prefix, "?(x => x." + item.ReturnType + ")"));
+                                                                                      x => ((HbmOneToOne)x).name,
+                                                                                      x => null,
+                                                                                      x => null,
+                                                                                      x => null,
+                                                                                      x => null,
+                                                                                      x => null,
+                                                                                      x => null,
+                                                                                      x => null,
+		                                                                              (prefix, builder, item) => builder.StartMethod(prefix, "HasOne(x => x." + item.Name + ")"));
 
 		public static readonly PropertyMappingType OneToMany = new PropertyMappingType(typeof (HbmOneToMany),
 		                                                                               "one-to-many",
@@ -83,7 +83,7 @@ namespace NHibernateHbmToFluent.Converter
 		                                                                               null,
 		                                                                               null,
 		                                                                               null,
-		                                                                               (prefix, builder, item) => builder.StartMethod(prefix, "?(x => x." + item.ReturnType + ")"));
+                                                                                       (prefix, builder, item) => builder.StartMethod(prefix, "HasMany(x => x." + item.ReturnType + ")"));
 
 		public static readonly PropertyMappingType Set = new PropertyMappingType(typeof (HbmSet),
 		                                                                         "set",

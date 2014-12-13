@@ -21,7 +21,7 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 		{
 			public static string Where
 			{
-				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).Where(x => 1 == 1)); }
+				get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasManyToMany<string>(x => x.ToLower()).Where("x => 1 == 1")); }
 			}
 		}
 	}

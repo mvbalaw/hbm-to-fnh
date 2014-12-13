@@ -15,6 +15,9 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 			{
 				switch (cascadeType)
 				{
+                    case "all-delete-orphan":
+                        _builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Cascade, FluentNHibernateNames.AllDeleteOrphan));
+                        break;
 					case "save-update":
 						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Cascade, FluentNHibernateNames.SaveUpdate));
 						break;
@@ -22,7 +25,7 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 						_builder.AddLine(string.Format(".{0}.{1}()", FluentNHibernateNames.Cascade, FluentNHibernateNames.None));
 						break;
 					default:
-						_builder.AddLine(string.Format(".{0}.?", FluentNHibernateNames.Cascade));
+                        _builder.AddLine(string.Format(".{0}.{1}?", FluentNHibernateNames.Cascade, cascadeType));
 						break;
 				}
 			}
@@ -30,7 +33,12 @@ namespace NHibernateHbmToFluent.Converter.Methods.Join
 
 		public static class FluentNHibernateNames
 		{
-			public static string Cascade
+            public static string AllDeleteOrphan
+            {
+                get { return ReflectionUtility.GetMethodName((FakeMap f) => f.HasMany<string>(x => x.ToLower()).Cascade.AllDeleteOrphan()); }
+            }
+            
+            public static string Cascade
 			{
 				get { return ReflectionUtility.GetPropertyName((FakeMap f) => f.HasMany<string>(x => x.ToLower()).Cascade); }
 			}
